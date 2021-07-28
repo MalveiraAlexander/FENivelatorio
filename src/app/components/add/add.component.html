@@ -1,0 +1,82 @@
+<app-header style="position: fixed; z-index: 999; top: 0; width: 100%;"></app-header>
+<div class="container-fluid" style="margin-top: 70px;">
+  <div class="row justify-content-center">
+    <app-tabs></app-tabs>
+  </div>
+  <div class="row justify-content-center animate__animated animate__fadeIn">
+    <h1 class="text-center">Agregar Vehículo</h1>
+  </div>
+  <div class="row justify-content-center animate__animated animate__fadeIn">
+    <form (ngSubmit)="guardarVehiculo()" [formGroup]="formAddVehicle">
+      <div class="mb-3 row">
+        <div class="col-6">
+          <label for="patente" class="form-label">Patente*</label>
+          <input [ngClass]="{'is-invalid': formAddVehicle.controls.patente.invalid && (formAddVehicle.controls.patente.dirty || formAddVehicle.controls.patente.touched)}" formControlName="patente" type="text" minlength="2" maxlength="8" required class="form-control" id="patente">
+          <div *ngIf="formAddVehicle.controls.patente.invalid && (formAddVehicle.controls.patente.dirty || formAddVehicle.controls.patente.touched)">
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.patente.errors?.required">
+              La patente es requerida.
+            </div>
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.patente.errors?.minlength">
+              La patente debe contener mas de 2 caracteres.
+            </div>
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.patente.errors?.maxlength">
+              La patente debe contener menos de 9 caracteres.
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label for="marca" class="form-label">Marca*</label>
+          <select [ngClass]="{'is-invalid': formAddVehicle.controls.marca.invalid && (formAddVehicle.controls.marca.dirty || formAddVehicle.controls.marca.touched)}" formControlName="marca" type="text" required class="form-control" id="marca">
+            <option value="Volvo">Volvo</option>
+            <option value="Peugeot">Peugeot</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Mini">Mini</option>
+            <option value="Tesla">Tesla</option>
+          </select>
+          <div *ngIf="formAddVehicle.controls.marca.invalid && (formAddVehicle.controls.marca.dirty || formAddVehicle.controls.marca.touched)">
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.marca.errors?.required">
+              La marca es requerida.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-6">
+          <label for="modelo" class="form-label">Modelo*</label>
+          <input [ngClass]="{'is-invalid': formAddVehicle.controls.modelo.invalid && (formAddVehicle.controls.modelo.dirty || formAddVehicle.controls.modelo.touched)}" formControlName="modelo" type="text" required class="form-control" id="modelo">
+          <div *ngIf="formAddVehicle.controls.modelo.invalid && (formAddVehicle.controls.modelo.dirty || formAddVehicle.controls.modelo.touched)">
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.modelo.errors?.required">
+              El modelo es requerido.
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label for="puertas" class="form-label">Numero de Puertas*</label>
+          <input [ngClass]="{'is-invalid': formAddVehicle.controls.puertas.invalid && (formAddVehicle.controls.puertas.dirty || formAddVehicle.controls.puertas.touched)}" formControlName="puertas" type="number" required class="form-control" id="puertas">
+          <div *ngIf="formAddVehicle.controls.puertas.invalid && (formAddVehicle.controls.puertas.dirty || formAddVehicle.controls.puertas.touched)">
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.puertas.errors?.required">
+              El numero de puertas es requerido.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row justify-content-center">
+        <div class="col-6">
+          <label for="titular" class="form-label">Titular*</label>
+          <select [ngClass]="{'is-invalid': formAddVehicle.controls.titular.invalid && (formAddVehicle.controls.titular.dirty || formAddVehicle.controls.titular.touched)}" formControlName="titular" type="text" required class="form-control" id="titular">
+            <option *ngFor="let item of users" value="{{item.first_name}} {{item.last_name}}">{{item.first_name}} {{item.last_name}}</option>
+          </select>
+          <div *ngIf="formAddVehicle.controls.titular.invalid && (formAddVehicle.controls.titular.dirty || formAddVehicle.controls.titular.touched)">
+            <div class="text-danger" style="font-size: 12px;" *ngIf="formAddVehicle.controls.titular.errors?.required">
+              El titular es requerido.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row justify-content-center">
+        <button type="submit" [ngClass]="{'btn-success': formAddVehicle.valid, 'btn-danger': !formAddVehicle.valid}" [disabled]="!formAddVehicle.valid" style="width: 200px;" class="btn">Agregar</button>
+      </div>
+
+    </form>
+  </div>
+</div>

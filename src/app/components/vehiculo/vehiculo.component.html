@@ -1,0 +1,54 @@
+<app-header style="position: fixed; z-index: 999; top: 0; width: 100%;"></app-header>
+
+<div class="container-fluid" style="margin-top: 70px;">
+  <div class="row justify-content-center">
+    <app-tabs></app-tabs>
+  </div>
+  <div *ngIf="loading"  class="row justify-content-center animate__animated animate__fadeIn">
+    <ng-lottie style="width: 200px; padding-left: 0;" width="200px" [options]="options"></ng-lottie>
+  </div>
+  <div *ngIf="!loading" class="row justify-content-center animate__animated animate__fadeIn">
+    <h1 class="text-center">Vehículos</h1>
+  </div>
+  <div *ngIf="!loading && notResult" class="row mt-3 justify-content-center animate__animated animate__fadeIn">
+    <h1 class="text-center">No hay vehículos registrados <span><a routerLink="/add">Agrega uno nuevo</a></span></h1>
+  </div>
+  <div *ngIf="!loading && !notResult" class="row justify-content-center animate__animated animate__fadeIn">
+    <h4>Lista de vehículos</h4>
+  </div>
+  <div *ngIf="!loading && !notResult" class="row justify-content-center animate__animated animate__fadeIn">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Patente</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Puertas</th>
+          <th>Titular</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of vehicles">
+          <td scope="row">{{item.patente}}</td>
+          <td>{{item.marca}}</td>
+          <td>{{item.modelo}}</td>
+          <td>{{item.puertas}}</td>
+          <td>{{item.titular}}</td>
+          <td>
+            <div class="container-fluid">
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <a style="cursor: pointer;" ><i class="fa fa-pen"></i></a>
+                </div>
+                <div class="col-auto">
+                  <a style="cursor: pointer;" (click)="eliminar(item.id)"><i class="fa fa-trash"></i></a>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
